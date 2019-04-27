@@ -1,0 +1,78 @@
+---
+title: "Assignment2_Andrew_Exploration"
+author: "Andrew Paterson"
+date: "4/27/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(tidyverse)
+library(rootSolve)
+
+```
+
+```{r}
+
+gas_raw <- read_csv("Gas_Data.csv")
+
+gas <- gas_raw %>% 
+  rename("price" = "Price_Dollars",
+         "low_demand" = "Q_Low_Gallons_per_Day",
+         "high_demand" = "Q_High_Gallons_per_Day")
+
+low_gas_lm <- lm(price ~ low_demand, data = gas)
+high_gas_lm <- lm(price ~ high_demand, data = gas)
+
+low_gas_lm
+high_gas_lm
+
+low_demand = 21.990584 - 0.0001355*q 
+
+gas_plot <- ggplot(gas, aes(x = high_demand, y = price))+ 
+  geom_line()+
+  stat_smooth(method = "lm", col = "blue")+
+  geom_line(data = gas, aes(x = low_demand))+
+  stat_smooth(method = "lm", col = "red")
+
+gas_plot
+
+```
+
+```{r vars}
+
+hi_d_int = 23.3914418 # high demand intercept 
+lo_d_int = 21.990584 # low demand intercept 
+hi_d_coef = -0.0001355 #high demand coefficient
+lo_d_coef = -0.0001297 #low demand coefficient
+agg_d_int = 22.70625969 #aggregate demand intercept
+agg_d_coef = 0.000066268 #aggregrate demand coefficient
+tax = 0.5 # amount of tax
+agg_d = 500000
+
+hi_d = hi_d_int - hi_d_coef*q # low demand curve
+lo_d = lo_d_int - lo_d_coef*q # high demand curve
+agg_d = agg_d_int + agg_d_coef*q
+agg_d_tax = agg_d_int + agg_d_coef*q + tax  
+supply = 
+
+```
+
+```{r function}
+
+
+fun <- function(q){ 
+  (agg_d - agg_d_int + agg_d_coef*q)
+  
+}
+
+range = c(0,280000)
+agg_demand = uniroot.all(fun, range)
+agg_demand
+
+```
+
