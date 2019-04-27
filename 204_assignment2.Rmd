@@ -52,7 +52,7 @@ lo_d_coef = -0.0001297 #low demand coefficient
 agg_d_int = 22.70625969 #aggregate demand intercept
 agg_d_coef = 0.000066268 #aggregrate demand coefficient
 tax = 0.5 # amount of tax
-agg_d = 500000
+agg_d = 5000000
 
 hi_d = hi_d_int - hi_d_coef*q # low demand curve
 lo_d = lo_d_int - lo_d_coef*q # high demand curve
@@ -64,10 +64,8 @@ supply =
 
 ```{r function}
 
-
 fun <- function(q){ 
-  (agg_d - agg_d_int + agg_d_coef*q)
-  
+  (agg_d - agg_d_int + agg_d_coef*q + tax*q)
 }
 
 range = c(0,280000)
